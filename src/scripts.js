@@ -1,12 +1,26 @@
 import "./css/styles.css";
 import "./images/turing-logo.png";
 import { fetchAPICall } from "./apiCalls";
-import { displayTrips } from "./domUpdates";
+import {
+  displayTrips,
+  getTotalAmountSpentThisYear,
+  displayTotalAmountSpent,
+} from "./domUpdates";
+
+const userID = 6;
 
 window.addEventListener("load", function () {
-  Promise.all([fetchAPICall("trips")]).then((allData) => {
-    const trips = allData[0].trips.filter((trip) => trip.userID === 50);
+  Promise.all([
+    fetchAPICall("travelers", userID),
+    fetchAPICall("trips"),
+    fetchAPICall("destinations"),
+  ]).then((allData) => {
+    const user = allData[0];
+    const trips = allData[1].trips.filter((trip) => trip.userID === user.id);
+    const destination = allData[2];
     displayTrips(trips);
+    displayTotalAmountSpent(user, trips, destination);
+    getTotalAmountSpentThisYear(trips, destination, userID);
   });
 });
 
