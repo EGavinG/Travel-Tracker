@@ -16,7 +16,7 @@ img {
   height: 75px;
 }
 
-.editable-div {
+.div-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,4 +70,12 @@ div.div-3 {
 
 .hidden {
   visibility: hidden;
+}
+
+#tripInfo {
+  overflow-y: auto;
+  display: flex;
+  width: 245px;
+  flex-direction: column;
+  align-items: stretch;
 }
